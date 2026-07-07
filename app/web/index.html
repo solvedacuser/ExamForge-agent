@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lecture Exam Coach Agent</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">FastAPI Agent</p>
+          <h1>Lecture Exam Coach</h1>
+        </div>
+        <div class="status-group" aria-live="polite">
+          <span id="healthDot" class="status-dot"></span>
+          <span id="healthText">Checking server</span>
+          <a href="/docs" class="docs-link">API docs</a>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="tools-panel" aria-labelledby="toolsTitle">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Study Tools</p>
+              <h2 id="toolsTitle">Session controls</h2>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button id="indexButton" type="button">Index PDFs</button>
+            <button id="sessionButton" type="button">Load Session</button>
+          </div>
+
+          <div id="notice" class="notice" aria-live="polite"></div>
+
+          <section class="summary-section" aria-labelledby="summaryTitle">
+            <h3 id="summaryTitle">Session state</h3>
+            <dl class="state-list">
+              <div>
+                <dt>Recent question</dt>
+                <dd id="recentQuestion">-</dd>
+              </div>
+              <div>
+                <dt>Recent answer</dt>
+                <dd id="recentAnswer">-</dd>
+              </div>
+              <div>
+                <dt>Weakness tags</dt>
+                <dd id="weaknessTags">-</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="summary-section" aria-labelledby="quizTitle">
+            <h3 id="quizTitle">Recent quiz</h3>
+            <pre id="recentQuiz" class="json-view">-</pre>
+          </section>
+
+          <section class="summary-section" aria-labelledby="gradeTitle">
+            <h3 id="gradeTitle">Grading results</h3>
+            <pre id="gradingResults" class="json-view">-</pre>
+          </section>
+        </aside>
+
+        <section class="chat-panel" aria-labelledby="chatTitle">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Agent Chat</p>
+              <h2 id="chatTitle">Study conversation</h2>
+            </div>
+            <button id="clearChatButton" class="icon-button" type="button" title="Clear chat" aria-label="Clear chat">
+              Clear
+            </button>
+          </div>
+
+          <div class="identity-grid">
+            <label>
+              Session ID
+              <input id="sessionIdInput" autocomplete="off" />
+            </label>
+            <label>
+              User ID
+              <input id="userIdInput" autocomplete="off" />
+            </label>
+          </div>
+
+          <section class="tool-strip" aria-labelledby="availableToolsTitle">
+            <div>
+              <p class="eyebrow">Available Tools</p>
+              <h3 id="availableToolsTitle">Agent can run these actions</h3>
+            </div>
+            <div class="tool-chip-row">
+              <button class="tool-chip" type="button" data-prompt="Agentic AI 개념 설명해줘">
+                Concept Explain
+              </button>
+              <button class="tool-chip" type="button" data-prompt="Agentic AI 예상문제 3개 만들어줘">
+                Quiz Generate
+              </button>
+              <button class="tool-chip" type="button" data-prompt="답안 채점: 제가 쓴 답은 Agent가 도구를 선택해 작업을 수행하는 구조입니다.">
+                Answer Grade
+              </button>
+              <button class="tool-chip" type="button" data-prompt="내 약점 분석해줘">
+                Weakness Analysis
+              </button>
+              <button class="tool-chip" type="button" data-prompt="복습 계획 추천해줘">
+                Review Plan
+              </button>
+            </div>
+          </section>
+
+          <div id="messageList" class="message-list" aria-live="polite"></div>
+
+          <form id="chatForm" class="composer">
+            <textarea id="messageInput" rows="3" placeholder="예: Agentic AI 개념 설명해줘"></textarea>
+            <button id="sendButton" type="submit">Send</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
