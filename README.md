@@ -171,6 +171,23 @@ grade_result = answer_grade_tool.invoke(
 
 분류 타입은 `concept_explain`, `quiz_generate`, `answer_grade`, `general_question`, `fallback`입니다. `general_question`은 날씨, 뉴스, 잡담처럼 강의 PDF 기반 학습 기능과 무관한 요청이며, RAG와 학습 Tool을 호출하지 않고 LLM이 직접 답변합니다. 단, 웹 검색 도구가 없으므로 실시간 정보가 필요한 질문은 확인할 수 없다고 답하도록 제한합니다.
 
+```mermaid
+flowchart TD
+    START([START]) --> analyze_request[analyze_request<br/>요청 분류 + 세션 메모리 로드]
+
+    analyze_request -->|concept_explain| concept_explain[concept_explain<br/>RAG 검색 + 개념 설명 Tool]
+    analyze_request -->|quiz_generate| quiz_generate[quiz_generate<br/>RAG 검색 + 예상문제 생성 Tool]
+    analyze_request -->|answer_grade| answer_grade[answer_grade<br/>최근 퀴즈 기반 답안 채점 Tool]
+    analyze_request -->|general_question| general_question[general_question<br/>학습 Tool 없이 일반 응답]
+    analyze_request -->|fallback| fallback[fallback<br/>불명확한 요청 안내]
+
+    concept_explain --> END([END])
+    quiz_generate --> END
+    answer_grade --> END
+    general_question --> END
+    fallback --> END
+```
+
 ```python
 from app.agent import draw_workflow_mermaid, get_graph
 
