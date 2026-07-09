@@ -2,7 +2,7 @@
 
 강의 PDF를 기반으로 시험 공부를 돕는 FastAPI 기반 Agent 서비스입니다. Agent API에 Middleware와 운영 안정성 가드레일을 적용한 상태입니다.
 
-## 현재 구현 범위
+## 구현 범위
 
 - FastAPI 앱 엔트리포인트
 - `/health` 헬스체크 API
